@@ -1,8 +1,7 @@
 const express = require("express");
+const Book = require("../models/books");
 
-const router = express.Router();
-
-const products = [];
+const router = express.Router({ mergeParams: true });
 
 // /admin/add-product => GET
 router.get("/add-product", (req, res, next) => {
@@ -13,10 +12,11 @@ router.get("/add-product", (req, res, next) => {
 });
 
 // /admin/add-product => POST
-router.post("/add-product", (req, res, next) => {
-  products.push({ title: req.body.title });
+router.post("/add-product", async (req, res, next) => {
+  console.log(req.body.book);
+  const book = new Book(req.body.book);
+  await book.save();
   res.redirect("/");
 });
 
-exports.routes = router;
-exports.products = products;
+module.exports = router;
