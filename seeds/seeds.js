@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Book = require("../models/books");
+const Product = require("../models/product");
 const books = require("./books");
 
 mongoose
@@ -12,9 +12,9 @@ mongoose
   });
 
 const seedBook = async () => {
-  await Book.deleteMany({});
+  await Product.deleteMany({});
   for (let book of books) {
-    newBook = new Book(book);
+    newBook = new Product(book);
     await newBook.save();
   }
 };

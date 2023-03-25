@@ -1,5 +1,5 @@
 const express = require("express");
-const Book = require("../models/books");
+const Book = require("../models/product");
 const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res, next) => {
