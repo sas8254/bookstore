@@ -1,0 +1,72 @@
+<% layout('layouts/boilerplate.ejs') %>
+<main>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form
+        novalidate
+        class="needs-validation"
+        action="/admin/add-product"
+        method="POST"
+      >
+        <div class="my-3">
+          <label class="form-label" for="title">Title</label>
+          <input
+            class="form-control"
+            type="text"
+            name="book[title]"
+            id="title"
+            required
+          />
+        </div>
+        <div class="my-3">
+          <label class="form-label" for="author">Author</label>
+          <input
+            class="form-control"
+            type="text"
+            name="book[author]"
+            id="author"
+            required
+          />
+        </div>
+        <div class="my-3">
+          <label class="form-label" for="description" required
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            type="text"
+            id="description"
+            name="book[description]"
+            required
+          ></textarea>
+        </div>
+        <div class="my-3">
+          <label class="form-label" for="price">Price</label>
+          <div class="input-group">
+            <span class="input-group-text" id="price-label">$</span>
+            <input
+              type="text"
+              id="price"
+              class="form-control"
+              placeholder="0.00"
+              name="book[price]"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="my-3">
+          <label class="form-label" for="image">Image Url</label>
+          <input
+            class="form-control"
+            type="text"
+            name="book[imageUrl]"
+            id="image"
+            required
+          />
+        </div>
+        <button class="btn btn-success" type="submit">Add Product</button>
+      </form>
+    </div>
+  </div>
+</main>

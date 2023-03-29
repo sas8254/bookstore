@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const ejsMate = require("ejs-mate");
+const User = require("./models/user");
 const mongoose = require("mongoose");
 mongoose
   .connect("mongodb://127.0.0.1:27017/books")
@@ -18,6 +19,18 @@ app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(async (req, res, next) => {
+  try {
+    const user = await User.findById("6423e56fd328b25fd0516b98");
+    req.user = user;
+    next();
+  } catch {
+    (e) => {
+      console.log(e);
+    };
+  }
+});
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");

@@ -9,4 +9,6 @@ router.get("/add-product", adminController.addProductForm);
 // /admin/add-product => POST
 router.post("/add-product", adminController.AddProduct);
 
+router.get("/edit-product/:id", adminController.editProductForm);
+
 module.exports = router;
