@@ -13,10 +13,8 @@ module.exports.AddProduct = async (req, res, next) => {
     book.userId = req.user;
     await book.save();
     res.redirect("/");
-  } catch {
-    (e) => {
-      console.log(e);
-    };
+  } catch (e) {
+    console.log(e);
   }
 };
 
@@ -24,15 +22,30 @@ module.exports.editProductForm = async (req, res, next) => {
   try {
     const book = await Product.findById(req.params.id);
     res.render("admin/edit-product", { book });
-  } catch {
-    (e) => {
-      console.log(e);
-    };
+  } catch (e) {
+    console.log(e);
   }
 };
 
-module.exports.editProduct = (req, res, next) => {};
+module.exports.editProduct = async (req, res, next) => {
+  try {
+    await Product.findByIdAndUpdate(req.params.id, req.body.book);
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-module.exports.allProducts = (req, res, next) => {};
+module.exports.allProducts = async (req, res, next) => {
+  const books = await Product.find({});
+  res.render("admin/products", { books });
+};
 
-module.exports.DeleteProduct = (req, res, next) => {};
+module.exports.deleteProduct = async (req, res, next) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.redirect("/admin/products");
+  } catch (e) {
+    console.log(e);
+  }
+};

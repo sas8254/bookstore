@@ -5,7 +5,10 @@ module.exports.getProducts = async (req, res, next) => {
   res.render("shop/shop", { books });
 };
 
-module.exports.getProduct = (req, res, next) => {};
+module.exports.getProduct = async (req, res, next) => {
+  const book = await Product.findById(req.params.id);
+  res.render("shop/show-product", { book });
+};
 
 module.exports.getIndex = (req, res, next) => {};
 
