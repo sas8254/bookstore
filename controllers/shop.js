@@ -12,11 +12,33 @@ module.exports.getProduct = async (req, res, next) => {
 
 module.exports.getIndex = (req, res, next) => {};
 
-module.exports.getCart = (req, res, next) => {};
+module.exports.getCart = async (req, res, next) => {
+  try {
+    const user = await req.user.populate("cart.items.productId");
+    const books = user.cart.items;
+    // res.send(books);
+    res.render("shop/cart", { books });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-module.exports.postCart = (req, res, next) => {};
+module.exports.addToCart = async (req, res, next) => {
+  console.log(req.user);
+  const product = await Product.findById(req.params.id);
+  await req.user.addToCart(product);
+  console.log(req.user.cart.items);
+  res.redirect("/cart");
+};
 
-module.exports.DeleteProductFormCart = (req, res, next) => {};
+module.exports.DeleteProductFormCart = async (req, res, next) => {
+  try {
+    await req.user.removeFromCart(req.params.id);
+    res.redirect("/cart");
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 module.exports.postOrder = (req, res, next) => {};
 

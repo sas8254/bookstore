@@ -1,0 +1,39 @@
+<% layout('layouts/boilerplate.ejs') %>
+<main>
+  <div class="mt-2">
+    <% if (books.length > 0) { %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <ol class="list-group list-group-numbered col-md-6">
+          <% for (let book of books) { %>
+
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"><%=book.productId.title%></div>
+            </div>
+            <p class="fw-bold text-primary me-5">
+              Quantity:- <%=book.quantity%>
+            </p>
+            <form
+              action="/cart/<%=book.productId._id%>?_method=DELETE"
+              method="post"
+            >
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </li>
+          <% } %>
+        </ol>
+        <div class="container d-flex justify-content-center">
+            <form action="/orders" method="POST">
+              <button type="submit" class="btn btn-info align-items-center my-3">Order Now!</button>
+            </form>
+          </div>
+      </div>
+    </div>
+    <% } else { %>
+    <h1>No Products Found!</h1>
+    <% } %>
+  </div>
+</main>
