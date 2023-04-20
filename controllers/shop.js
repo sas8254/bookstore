@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Order = require("../models/order");
 
 module.exports.getProducts = async (req, res, next) => {
   const books = await Product.find({});
@@ -16,7 +17,6 @@ module.exports.getCart = async (req, res, next) => {
   try {
     const user = await req.user.populate("cart.items.productId");
     const books = user.cart.items;
-    // res.send(books);
     res.render("shop/cart", { books });
   } catch (e) {
     console.log(e);
@@ -40,6 +40,33 @@ module.exports.DeleteProductFormCart = async (req, res, next) => {
   }
 };
 
-module.exports.postOrder = (req, res, next) => {};
+module.exports.createOrder = async (req, res, next) => {
+  try {
+    const user = await req.user.populate("cart.items.productId");
+    const products = user.cart.items.map((i) => {
+      return { quantity: i.quantity, product: { ...i.productId._doc } };
+    });
+    const order = new Order({
+      user: {
+        name: req.user.name,
+        userId: req.user,
+      },
+      products: products,
+    });
+    order.save();
+    req.user.clearCart();
+    res.redirect("/orders");
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-module.exports.getOrders = (req, res, next) => {};
+module.exports.getOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find({ "user.userId": req.user._id });
+    // res.send(orders);
+    res.render("shop/orders", { orders });
+  } catch (error) {
+    console.log(error);
+  }
+};

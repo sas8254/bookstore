@@ -53,4 +53,9 @@ UserSchema.methods.removeFromCart = async function (id) {
   return await this.save();
 };
 
+UserSchema.methods.clearCart = async function () {
+  this.cart = { items: [] };
+  return await this.save();
+};
+
 module.exports = mongoose.model("User", UserSchema);

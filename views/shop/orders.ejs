@@ -1,25 +1,28 @@
-<%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/orders.css">
-    </head>
+<% layout('layouts/boilerplate.ejs') %>
+<main>
+  <div class="mt-2">
+    <% if (orders.length > 0) { %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <ol class="list-group list-group-numbered col-md-6">
+          <% for (let order of orders) { %>
+          <h3>Order - #<%=order._id %></h3>
+          <% for(let p of order.products){ %>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"><%=p.product.title%></div>
+            </div>
+            <p class="fw-bold text-primary me-5">Quantity:- <%=p.quantity%></p>
+          </li>
+          <% } %> <% } %>
+        </ol>
+      </div>
+    </div>
+    <% } else { %>
+    <h1>No Oredrs Found!</h1>
+    <% } %>
+  </div>
+</main>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-        <main>
-            <% if (orders.length <= 0) { %>
-                <h1>Nothing there!</h1>
-            <% } else { %>
-                <ul class="orders">
-                    <% orders.forEach(order => { %>
-                        <li class="orders__item">
-                            <h1>Order - # <%= order._id %></h1>
-                            <ul class="orders__products">
-                                <% order.products.forEach(p => { %>
-                                    <li class="orders__products-item"><%= p.product.title %> (<%= p.quantity %>)</li>
-                                <% }); %>
-                            </ul>
-                        </li>
-                    <% }); %>
-                </ul>
-            <% } %>
-        </main>
-        <%- include('../includes/end.ejs') %>
