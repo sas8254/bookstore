@@ -15,7 +15,9 @@
           <li class="list-group-item"><%= book.price %></li>
         </ul>
         <div class="card-body">
-          <a href="#" class="btn btn-warning d-inline-block">Add to Cart</a>
+          <form action="/cart/<%=book._id%>" method="post" class="d-inline-block">
+            <button class="btn btn-sm btn-warning d-inline-block ">Add to Cart</button>
+          </form>
         </div>
       </div>
     </div>

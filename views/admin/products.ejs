@@ -23,8 +23,8 @@
               <li class="list-group-item"><%= book.price %></li>
             </ul>
             <div class="card-body">
-              <a href="/admin/edit-product/<%=book._id%>" class="btn btn-sm btn-warning d-inline-block ">Edit</a>
-              <form class="d-inline-block" action="/admin/delete-product/<%=book._id%>" method="post">
+              <a href="/admin/product/<%=book._id%>/edit" class="btn btn-sm btn-warning d-inline-block ">Edit</a>
+              <form class="d-inline-block" action="/admin/product/<%=book._id%>?_method=DELETE" method="post">
                 <button class="btn btn-sm ms-3 btn-danger d-inline-block">Delete</button>
             </form>
             </div>
