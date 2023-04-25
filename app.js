@@ -36,11 +36,12 @@ app.use(async (req, res, next) => {
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
-
+const authRoutes = require("./routes/auth");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+app.use(authRoutes);
 
 app.use((req, res, next) => {
   res.status(404).render("404");
