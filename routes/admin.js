@@ -1,7 +1,8 @@
 const express = require("express");
+const router = express.Router({ mergeParams: true });
 const adminController = require("../controllers/admin");
 
-const router = express.Router({ mergeParams: true });
+
 
 router.get("/products/add", adminController.addProductForm);
 
