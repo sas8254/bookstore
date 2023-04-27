@@ -3,6 +3,7 @@ const express = require("express");
 const ejsMate = require("ejs-mate");
 const User = require("./models/user");
 const methodOverride = require("method-override");
+const session = require("express-session");
 const mongoose = require("mongoose");
 mongoose
   .connect("mongodb://127.0.0.1:27017/books")
@@ -21,6 +22,9 @@ app.set("views", "views");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(
+  session({ secret: "my secret", resave: "false", saveUninitialized: false })
+);
 
 app.use(async (req, res, next) => {
   try {
